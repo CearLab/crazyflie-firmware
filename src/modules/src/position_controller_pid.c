@@ -64,8 +64,7 @@ struct this_s {
 };
 
 // Maximum roll/pitch angle permited
-static float rpLimit  = 2; 
-static float pLimit = 2;
+static float rpLimit  = 2;  
 static float rpLimitOverhead = 1.10f; 
 // Velocity maximums
 static float xyVelMax = 0.1f;
@@ -210,7 +209,7 @@ void velocityController(float* thrust, attitude_t *attitude, setpoint_t *setpoin
   attitude->roll  = -(pitchRaw * cosf(yawRad)) + (rollRaw  * sinf(yawRad));
 
   attitude->roll  = constrain(attitude->roll,  -rpLimit, rpLimit);
-  attitude->pitch = constrain(attitude->pitch, -pLimit, pLimit);
+  attitude->pitch = constrain(attitude->pitch, -rpLimit, rpLimit);
 
   // Thrust
   float thrustRaw = runPid(state->velocity.z, &this.pidVZ, setpoint->velocity.z, DT);
